@@ -1,33 +1,23 @@
 package com.example.atyk.hello;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import com.example.atyk.hello.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
+  private ActivityMainBinding binding;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
   }
 
   @Override protected void onStart() {
     super.onStart();
-    final TextView msg = (TextView) findViewById(R.id.text_area);
-    final Button button = (Button) findViewById(R.id.button_toggle);
-    button.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View view) {
-        if (msg.getVisibility() == View.INVISIBLE) {
-          button.setText(R.string.button_text_hide);
-          msg.setVisibility(View.VISIBLE);
-        } else {
-          button.setText(R.string.button_text_show);
-          msg.setVisibility(View.INVISIBLE);
-        }
-      }
-    });
+    MainViewModel viewModel = new MainViewModel(this, getString(R.string.display_text));
+    binding.setViewModel(viewModel);
+    viewModel.setButtonText(getString(R.string.button_text_show));
   }
 
   @Override protected void onStop() {
