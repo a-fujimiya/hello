@@ -40,7 +40,7 @@ public class MainViewModel extends BaseObservable {
       buttonText = context.getString(R.string.button_text_hide);
     }
     isShowMsg = !isShowMsg;
-    Log.i("@@@", "onClick: " + isShowMsg + ", " + view.getVisibility());
+    Log.i("@@@", "onClick: " + isShowMsg);
     notifyPropertyChanged(BR._all);
   }
 }
