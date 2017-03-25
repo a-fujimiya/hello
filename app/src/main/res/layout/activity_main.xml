@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.atyk.hello.MainActivity">
+    >
+  <data>
+    <import type="android.view.View"/>
+    <variable
+        name="viewModel"
+        type="com.example.atyk.hello.MainViewModel"
+        />
+  </data>
+  <RelativeLayout
+      android:id="@+id/activity_main"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingBottom="@dimen/activity_vertical_margin"
+      android:paddingLeft="@dimen/activity_horizontal_margin"
+      android:paddingRight="@dimen/activity_horizontal_margin"
+      android:paddingTop="@dimen/activity_vertical_margin"
+      tools:context="com.example.atyk.hello.MainActivity"
+      >
 
     <TextView
         android:id="@+id/text_area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:visibility="invisible"
+        android:text="@{viewModel.msg}"
         android:textSize="20sp"
-        android:text="@string/display_text" />
+        android:visibility="@{viewModel.showMsg? View.VISIBLE: View.INVISIBLE}"
+        />
     <Button
         android:id="@+id/button_toggle"
         android:layout_width="wrap_content"
@@ -25,5 +36,8 @@
         android:layout_below="@+id/text_area"
         android:layout_marginTop="4dp"
         android:gravity="center"
-        android:text="@string/button_text_show"/>
-</RelativeLayout>
+        android:onClick="@{viewModel::onClickButton}"
+        android:text="@{viewModel.buttonText}"
+        />
+  </RelativeLayout>
+</layout>
